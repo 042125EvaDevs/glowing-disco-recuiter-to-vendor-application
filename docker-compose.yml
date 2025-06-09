@@ -1,6 +1,5 @@
 services:
   mysql:
-    container_name: products_mysql
     image: mysql:latest
     ports:
       - "3306:3306"
@@ -11,12 +10,12 @@ services:
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
       MYSQL_DATABASE: ${DATABASE_NAME}
     volumes:
-      - products_mysql:/var/lib/mysql
+      - rtv_mysql:/var/lib/mysql
     restart: unless-stopped
 
 networks:
   mysql:
     driver: bridge
 volumes:
-  products_mysql:
+  rtv_mysql:
   workbench:
