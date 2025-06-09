@@ -8,11 +8,13 @@
 		<version>3.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>xyz.catuns</groupId>
 	<artifactId>recruiter-to-vendor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>recruiter-to-vendor</name>
 	<description>Demo project for Spring Boot</description>
+
 	<url/>
 	<licenses>
 		<license/>
@@ -29,6 +31,7 @@
 	<properties>
 		<java.version>24</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

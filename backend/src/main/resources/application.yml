@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: recruiter-to-vendor
+  datasource:
+
+    url: jdbc:mysql://localhost:3306/rtv_app
+    username: default
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
