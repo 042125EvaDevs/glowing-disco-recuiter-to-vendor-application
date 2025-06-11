@@ -20,7 +20,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(DefaultUserDetailsService.class);
 
     private final UserEntityRepository userRepository;
-    
+
     public DefaultUserDetailsService(UserEntityRepository userRepository) {
         this.userRepository = userRepository;
     }

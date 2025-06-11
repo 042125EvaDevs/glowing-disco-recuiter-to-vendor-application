@@ -35,6 +35,15 @@ public class SecurityConfiguration {
     }
 
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) throws Exception {
+        AuthenticationProvider authenticationProvider = new DefaultAuthenticationProvider(userDetailsService, passwordEncoder);
+        return new ProviderManager(authenticationProvider);
+    }
 
 }
