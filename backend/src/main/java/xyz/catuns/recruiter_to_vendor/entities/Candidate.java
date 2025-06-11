@@ -27,7 +27,7 @@ public class Candidate {
     @Enumerated(value = EnumType.STRING)
     private VisaStatus visaStatus;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private final List<Skill> skills = new ArrayList<>();
 
     public Long getId() {
