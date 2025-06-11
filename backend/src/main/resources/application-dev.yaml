@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:h2:mem:${DATABASE_NAME:rtv_app}
+
+logging:
+  level:
+    org.springframework.security: debug
+    xyz.catuns: debug
+    org:
+      slf4j: debug

@@ -1,0 +1,16 @@
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+logging:
+  level:
+    org.springframework.security: debug
+    xyz.catuns: debug
+    org:
+      slf4j: debug
+
+
