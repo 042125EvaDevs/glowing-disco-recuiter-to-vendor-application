@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_HOST: ${DATABASE_HOST}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+    volumes:
+      - rtv_mysql:/var/lib/mysql
+    restart: unless-stopped
+
+networks:
+  mysql:
+    driver: bridge
+volumes:
+  rtv_mysql:
+  workbench:
