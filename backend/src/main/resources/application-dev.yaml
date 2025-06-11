@@ -7,7 +7,7 @@ spring:
 
 logging:
   level:
-    org.springframework.security: debug
+    org.springframework.security: trace
     xyz.catuns: debug
     org:
       slf4j: debug
