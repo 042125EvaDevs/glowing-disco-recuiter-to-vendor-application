@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import xyz.catuns.recruiter_to_vendor.dto.LoginResponse;
 import xyz.catuns.recruiter_to_vendor.dto.UserEntityDetails;
 import xyz.catuns.recruiter_to_vendor.dto.UserRegistrationDTO;
 import xyz.catuns.recruiter_to_vendor.entities.UserEntity;
@@ -30,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserEntityDetails login(UserRegistrationDTO userRegistrationDTO) {
+    public LoginResponse login(UserRegistrationDTO userRegistrationDTO) {
         Authentication auth = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         userRegistrationDTO.username(),
@@ -43,7 +44,9 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String username = ((User) auth.getPrincipal()).getUsername();
-        return new UserEntityDetails(username);
+        String password = ((User) auth.getPrincipal()).getPassword();
+
+        return LoginResponse.of(username, password);
     }
 
     @Override
