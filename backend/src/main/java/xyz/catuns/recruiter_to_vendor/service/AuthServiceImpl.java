@@ -32,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(UserRegistrationDTO userRegistrationDTO) {
+        log.info("login {}", userRegistrationDTO);
         Authentication auth = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         userRegistrationDTO.username(),
@@ -44,9 +45,8 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String username = ((User) auth.getPrincipal()).getUsername();
-        String password = ((User) auth.getPrincipal()).getPassword();
 
-        return LoginResponse.of(username, password);
+        return LoginResponse.of(username, userRegistrationDTO.password());
     }
 
     @Override

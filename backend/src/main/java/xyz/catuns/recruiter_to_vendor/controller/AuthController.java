@@ -29,10 +29,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserEntityDetails> login(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<LoginResponse> login(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         LoginResponse loginResponse = authService.login(userRegistrationDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .header("Authorization", loginResponse.token())
-                .body(loginResponse.user());
+                .body(loginResponse);
     }
 }

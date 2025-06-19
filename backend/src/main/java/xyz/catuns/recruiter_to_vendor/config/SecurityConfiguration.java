@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import xyz.catuns.recruiter_to_vendor.security.CorsConfigurationSourceImpl;
 import xyz.catuns.recruiter_to_vendor.security.DefaultAuthenticationProvider;
 
 @Configuration
@@ -24,13 +25,14 @@ public class SecurityConfiguration {
                 .requestMatchers(
                         "/auth/**",
                         "/actuator/**",
-                        "/api/candidates/health",
+                        "/api/candidates/**",
                         "/error")
                     .permitAll()
                 .anyRequest()
                     .authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(cors -> cors.configurationSource(new CorsConfigurationSourceImpl()));
         return http.build();
     }
 
