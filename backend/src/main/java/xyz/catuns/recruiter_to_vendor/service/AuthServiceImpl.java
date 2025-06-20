@@ -9,11 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import xyz.catuns.recruiter_to_vendor.dto.JwtToken;
 import xyz.catuns.recruiter_to_vendor.dto.LoginResponse;
 import xyz.catuns.recruiter_to_vendor.dto.UserEntityDetails;
 import xyz.catuns.recruiter_to_vendor.dto.UserRegistrationDTO;
 import xyz.catuns.recruiter_to_vendor.entities.UserEntity;
 import xyz.catuns.recruiter_to_vendor.repositories.UserEntityRepository;
+import xyz.catuns.recruiter_to_vendor.security.jwt.JwtProperties;
+import xyz.catuns.recruiter_to_vendor.security.jwt.JwtService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -23,11 +26,14 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final UserEntityRepository userEntityRepository;
+    private final JwtProperties jwtProperties;
 
-    public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UserEntityRepository userEntityRepository) {
+
+    public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UserEntityRepository userEntityRepository, JwtProperties jwtProperties) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.userEntityRepository = userEntityRepository;
+        this.jwtProperties = jwtProperties;
     }
 
     @Override
@@ -46,7 +52,11 @@ public class AuthServiceImpl implements AuthService {
 
         String username = ((User) auth.getPrincipal()).getUsername();
 
-        return LoginResponse.of(username, userRegistrationDTO.password());
+        UserEntityDetails user = new UserEntityDetails(username);
+
+        JwtToken token = JwtService.of(jwtProperties).generate();
+
+        return new LoginResponse(user, token);
     }
 
     @Override

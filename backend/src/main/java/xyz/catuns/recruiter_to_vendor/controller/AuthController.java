@@ -32,7 +32,7 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         LoginResponse loginResponse = authService.login(userRegistrationDTO);
         return ResponseEntity.status(HttpStatus.OK)
-                .header("Authorization", loginResponse.token())
+                .header("Authorization", loginResponse.token().token())
                 .body(loginResponse);
     }
 }

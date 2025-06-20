@@ -8,19 +8,23 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import xyz.catuns.recruiter_to_vendor.security.CorsConfigurationSourceImpl;
 import xyz.catuns.recruiter_to_vendor.security.DefaultAuthenticationProvider;
+import xyz.catuns.recruiter_to_vendor.security.jwt.filter.JwtGeneratorFilter;
 
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.addFilterAfter(new JwtGeneratorFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests(r -> r
                 .requestMatchers(
                         "/auth/**",
@@ -47,5 +51,4 @@ public class SecurityConfiguration {
         AuthenticationProvider authenticationProvider = new DefaultAuthenticationProvider(userDetailsService, passwordEncoder);
         return new ProviderManager(authenticationProvider);
     }
-
 }
