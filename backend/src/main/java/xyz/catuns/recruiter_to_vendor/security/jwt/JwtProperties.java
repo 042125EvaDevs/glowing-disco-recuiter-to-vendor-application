@@ -1,21 +1,37 @@
 package xyz.catuns.recruiter_to_vendor.security.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
-import java.util.Objects;
+import xyz.catuns.recruiter_to_vendor.utils.Constants;
 
 
 @ConfigurationProperties(prefix = "auth.jwt")
-public record JwtProperties(
-   String secret,
-   @DefaultValue("36000000")
-   Long expiration,
-   @DefaultValue("recruiter-to-vendor")
-   String issuer
-) {
+public class JwtProperties {
 
-    public JwtProperties {
-        Objects.requireNonNull(secret, "jwt secret must not be null");
+    private String secret;
+    private Long expiration = Constants.Jwt.EXPIRATION;
+    private String issuer = Constants.Jwt.ISSUER;
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public Long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
+    }
+
+    public String getIssuer() {
+        return issuer;
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
     }
 }

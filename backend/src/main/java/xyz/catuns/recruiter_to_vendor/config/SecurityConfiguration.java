@@ -16,13 +16,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import xyz.catuns.recruiter_to_vendor.security.CorsConfigurationSourceImpl;
 import xyz.catuns.recruiter_to_vendor.security.DefaultAuthenticationProvider;
+import xyz.catuns.recruiter_to_vendor.security.jwt.JwtService;
 import xyz.catuns.recruiter_to_vendor.security.jwt.filter.JwtGeneratorFilter;
 
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtService jwtService) throws Exception {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterAfter(new JwtGeneratorFilter(), BasicAuthenticationFilter.class);
         http.authorizeHttpRequests(r -> r
